@@ -1,0 +1,65 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kraftcontroller-certificate
+  namespace: confluent
+spec:
+  commonName: kraftcontroller
+  dnsNames:
+    - kraftcontroller
+    - 'kraftcontroller.confluent.svc.cluster.local'
+    - '*.kraftcontroller.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-kraftcontroller
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kafka-certificate
+  namespace: confluent
+spec:
+  commonName: kafka
+  dnsNames:
+    - kafka
+    - 'kafka.confluent.svc.cluster.local'
+    - '*.kafka.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-kafka
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cmf-certificate
+  namespace: confluent
+spec:
+  commonName: cmf
+  dnsNames:
+    - cmf
+    - cmf-service
+    - 'cmf-service.confluent.svc.cluster.local'
+    - '*.cmf-service.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-cmf
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kraftcontroller-certificate
+  namespace: confluent
+spec:
+  commonName: controlcenter
+  dnsNames:
+    - controlcenter
+    - 'controlcenter.confluent.svc.cluster.local'
+    - '*.controlcenter.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-controlcenter
