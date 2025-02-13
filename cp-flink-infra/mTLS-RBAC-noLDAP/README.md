@@ -3,8 +3,8 @@
 ## Create Certificates, Keys and Secrets
 * Deploy Issuer ans Certificate CRs:
 ```shell
-kubectl apply -f issuer.yaml
-kubectl apply -f certs.yaml
+kubectl apply -f ../certs/issuer.yaml
+kubectl apply -f ../certs/certs.yaml
 ```
 * Create RSA keypair for MDS token generations:
 ```shell
