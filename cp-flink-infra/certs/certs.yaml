@@ -1,0 +1,247 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: zookeeper-certificate
+  namespace: confluent
+spec:
+  commonName: zookeeper
+  dnsNames:
+    - zookeeper
+    - 'zookeeper.confluent.svc.cluster.local'
+    - '*.zookeeper.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-zookeeper
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kraftcontroller-certificate
+  namespace: confluent
+spec:
+  commonName: kraftcontroller
+  dnsNames:
+    - kraftcontroller
+    - 'kraftcontroller.confluent.svc.cluster.local'
+    - '*.kraftcontroller.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-kraftcontroller
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kafka-certificate
+  namespace: confluent
+spec:
+  commonName: kafka
+  dnsNames:
+    - kafka
+    - 'kafka.confluent.svc.cluster.local'
+    - '*.kafka.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-kafka
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: schemaregistry-certificate
+  namespace: confluent
+spec:
+  commonName: sr
+  dnsNames:
+    - sr
+    - schemaregistry
+    - 'schemaregistry.confluent.svc.cluster.local'
+    - '*.schemaregistry.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-schemaregistry
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: connect-certificate
+  namespace: confluent
+spec:
+  commonName: controlcenter
+  dnsNames:
+    - connect
+    - 'connect.confluent.svc.cluster.local'
+    - '*.connect.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-connect
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: controlcenter-certificate
+  namespace: confluent
+spec:
+  commonName: c3
+  dnsNames:
+    - c3
+    - controlcenter
+    - 'controlcenter.confluent.svc.cluster.local'
+    - '*.controlcenter.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-controlcenter
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kafkarestproxy-certificate
+  namespace: confluent
+spec:
+  commonName: krp
+  dnsNames:
+    - krp
+    - kafkarestproxy
+    - 'kafkarestproxy.confluent.svc.cluster.local'
+    - '*.kafkarestproxy.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-kafkarestproxy
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ksql-certificate
+  namespace: confluent
+spec:
+  commonName: ksql
+  dnsNames:
+    - ksql
+    - ksqldb
+    - 'ksqldb.confluent.svc.cluster.local'
+    - '*.ksqldb.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-ksql
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cmf-certificate
+  namespace: confluent
+spec:
+  commonName: cmf
+  dnsNames:
+    - cmf
+    - cmf-service
+    - 'cmf-service.confluent'
+    - 'cmf-service.confluent.svc'
+    - 'cmf-service.confluent.svc.cluster.local'
+    - '*.cmf-service.confluent.svc.cluster.local'
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-cmf
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: client-certificate-alice
+  namespace: confluent
+spec:
+  commonName: alice
+  dnsNames:
+    - alice
+    - alice-client
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-client-alice
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: client-certificate-bob
+  namespace: confluent
+spec:
+  commonName: bob
+  dnsNames:
+    - bob
+    - bob-client
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-client-bob
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords

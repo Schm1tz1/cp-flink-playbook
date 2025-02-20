@@ -2,7 +2,7 @@
 
 ## Operator and Helm Setup for CFK, FKO, CMF
 ```shell
-helm upgrade --install confluent-operator  confluentinc/confluent-for-kubernetes \
+helm upgrade --install confluent-operator confluentinc/confluent-for-kubernetes \
   --set namespaced=false \
   --set enableCMFDay2Ops=true \
   --namespace confluent
