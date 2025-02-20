@@ -249,7 +249,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: client-certificate-bob
+  name: client-certificate-sudo
   namespace: confluent
 spec:
   commonName: sudo
