@@ -82,7 +82,7 @@ spec:
       authentication:
         type: bearer
         bearer:
-          secretRef: mds-client
+          secretRef: kafka-client
     kRaftController:
       controllerListener:
         authentication:
