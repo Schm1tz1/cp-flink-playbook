@@ -245,3 +245,24 @@ spec:
       passwordSecretRef: 
         key: keystore-default
         name: tls-keystore-passwords
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: client-certificate-bob
+  namespace: confluent
+spec:
+  commonName: sudo
+  dnsNames:
+    - sudo
+    - sudo-client
+  issuerRef:
+    name: my-ca-issuer
+    kind: Issuer
+  secretName: tls-client-sudo
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: 
+        key: keystore-default
+        name: tls-keystore-passwords

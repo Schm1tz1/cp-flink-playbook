@@ -33,6 +33,8 @@ metadata:
 spec:
   replicas: 1
   oneReplicaPerNode: true
+  metricReporter:
+    enabled: false
   image:
     application: confluentinc/cp-server:7.8.0
     init: confluentinc/confluent-init-container:2.10.0

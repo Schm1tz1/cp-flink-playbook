@@ -1,0 +1,27 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: cmf-rb
+  namespace: confluent
+spec:
+  principal:
+    type: user
+    name: cmf
+  role: UserAdmin
+  clustersScopeByIds:
+    cmfId: CMF-id
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: cmf-rb-env-test
+  namespace: confluent
+spec:
+  principal:
+    type: user
+    name: cmf
+  role: UserAdmin
+  clustersScopeByIds:
+    cmfId: CMF-id
+    flinkEnvironmentId: flink-env1

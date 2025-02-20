@@ -1,0 +1,42 @@
+cmf:
+  logging:
+    level:
+      root: debug
+  authorization:
+    mdsRestConfig:
+      endpoint: http://kafka.confluent.svc.cluster.local:8090
+      authentication:
+        type: basic
+        config:
+          confluent.metadata.http.auth.credentials.provider: BASIC
+          confluent.metadata.basic.auth.user.info: cmf:cmf-secret
+  ssl:
+    keystore: /opt/keystore/keystore.jks
+    keystore-password: changeMe!
+    trust-store: /opt/truststore/truststore.jks
+    trust-store-password: changeMe!
+    client-auth: need
+  authentication:
+    type: mtls
+    config:
+      auth.ssl.principal.mapping.rules: |
+        RULE:^CN=(.*?),OU=(.*?),O=(.*?),L=(.*?),ST=(.*?),C=(.*?)$/$1@$2/L,
+        RULE:^.*[Cc][Nn]=([-a-zA-Z0-9.]*).*$/$1/L,
+        DEFAULT
+  k8s: #This configuration is only required if you did not setup FKO and CMF can reach FKO
+    enabled: true
+mountedVolumes:
+  volumeMounts:
+    - name: truststore
+      mountPath: /opt/truststore
+    - name: keystore
+      mountPath: /opt/keystore
+  volumes:
+    - name: truststore
+      secret:
+        secretName: tls-cmf
+        key: truststore.jks
+    - name: keystore
+      secret:
+        secretName: tls-cmf
+        key: keystore.jks

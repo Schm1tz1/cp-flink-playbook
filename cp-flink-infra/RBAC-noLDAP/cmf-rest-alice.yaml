@@ -1,0 +1,13 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: CMFRestClass
+metadata:
+  name: alice
+  namespace: confluent
+spec:
+  cmfRest:
+    endpoint: https://cmf-service.confluent.svc.cluster.local:80
+    authentication:
+      type: mtls
+      sslClientAuthentication: true
+    tls:
+      secretRef: tls-client-alice
