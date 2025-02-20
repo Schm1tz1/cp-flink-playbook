@@ -71,4 +71,4 @@ kubectl apply -f cmf-rest-bob.yaml
 kubectl apply -f cmf-rest-sudo.yaml
 ```
 Each `CMFRestClass` instance corresponds to a connection to CMF/CP-Flink with a different user.
-The Rolebindings are configured in a way that sudo as a clsuter admin can create/delete FlinkEnvironments and FlinkApplications, alice can manage Applications in the environment `flink-env1` and bob can only read/list applications in `flink-env1`.
+The Rolebindings are configured in a way that sudo as a cluster admin can create/delete FlinkEnvironments and FlinkApplications, alice can manage Applications in the environment `flink-env1` and bob can only read/list applications in `flink-env1`.
