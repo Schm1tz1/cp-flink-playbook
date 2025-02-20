@@ -1,4 +1,4 @@
-# RBAC-Setup with mTLS without IdP/LDAP/OAuth
+# RBAC-Setup without IdP/LDAP/OAuth, non-TLS
 
 ## Create Certificates, Keys and Secrets
 * Deploy Issuer ans Certificate CRs:
