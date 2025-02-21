@@ -1,7 +1,7 @@
 # RBAC-Setup without IdP/LDAP/OAuth, non-TLS
 
 ## Create Certificates, Keys and Secrets
-* Deploy Issuer ans Certificate CRs:
+* Deploy Issuer and Certificate CRs:
 ```shell
 kubectl apply -f ../certs/issuer.yaml
 kubectl apply -f ../certs/certs.yaml
