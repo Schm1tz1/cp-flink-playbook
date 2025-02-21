@@ -1,0 +1,27 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: cmf-rb-sudo-admin
+  namespace: confluent
+spec:
+  principal:
+    type: user
+    name: sudo
+  role: ClusterAdmin
+  clustersScopeByIds:
+    cmfId: CMF-id
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: cmf-rb-sudo-admin-env
+  namespace: confluent
+spec:
+  principal:
+    type: user
+    name: sudo
+  role: ClusterAdmin
+  clustersScopeByIds:
+    cmfId: CMF-id
+    flinkEnvironmentId: flink-env1

@@ -49,7 +49,7 @@ kubectl apply -f cp.yaml
 Wait for brokers to be in running state.
 * Deploy Rolebindings for CMF user:
 ```shell
-kubectl apply -f cmf-rolebindings.yaml
+kubectl apply -f rolebindings-cmf.yaml
 ```
 
 ## CMF Configuration and Deployment
@@ -61,7 +61,9 @@ helm upgrade --install cmf confluentinc/confluent-manager-for-apache-flink \
 ```
 * Deploy rolebindings for different users (Alice, Bob, Sudo):
 ```shell
-kubectl apply -f user-rolebindings.yaml
+kubectl apply -f rolebindings-alice.yaml
+kubectl apply -f rolebindings-bob.yaml
+kubectl apply -f rolebindings-sudo.yaml
 ```
 
 * Deploy CMF Rest Class references that correspond to the diferent CMF users:

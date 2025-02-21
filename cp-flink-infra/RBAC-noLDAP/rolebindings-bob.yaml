@@ -1,0 +1,17 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: cmf-rb-bob
+  namespace: confluent
+spec:
+  principal:
+    type: user
+    name: bob
+  resourcePatterns:
+    - name: flink-env1
+      patternType: LITERAL
+      resourceType: FlinkEnvironment
+  role: DeveloperRead
+  clustersScopeByIds:
+    cmfId: CMF-id

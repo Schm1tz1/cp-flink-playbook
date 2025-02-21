@@ -2,19 +2,6 @@
 apiVersion: platform.confluent.io/v1beta1
 kind: ConfluentRolebinding
 metadata:
-  name: cmf-rb-sudo-admin
-  namespace: confluent
-spec:
-  principal:
-    type: user
-    name: sudo
-  role: ClusterAdmin
-  clustersScopeByIds:
-    cmfId: CMF-id
----
-apiVersion: platform.confluent.io/v1beta1
-kind: ConfluentRolebinding
-metadata:
   name: cmf-rb-alice
   namespace: confluent
 spec:
@@ -32,16 +19,18 @@ spec:
 apiVersion: platform.confluent.io/v1beta1
 kind: ConfluentRolebinding
 metadata:
-  name: cmf-rb-bob
+  name: cmf-rb-alice-app
   namespace: confluent
 spec:
-  principal:
-    type: user
-    name: bob
-  resourcePatterns:
-    - name: flink-env1
-      patternType: LITERAL
-      resourceType: FlinkEnvironment
-  role: DeveloperRead
   clustersScopeByIds:
     cmfId: CMF-id
+    flinkEnvironmentId: flink-env1
+  principal:
+    name: alice
+    type: user
+  resourcePatterns:
+  - name: '*'
+    patternType: LITERAL
+    resourceType: FlinkApplication
+  role: DeveloperManage
+  
