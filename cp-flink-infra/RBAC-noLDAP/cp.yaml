@@ -41,7 +41,7 @@ spec:
     type: rbac
     superUsers:
       - User:kafka
-  replicas: 3 # Note: For now we need 3 brokers to fulfill replication facto/min.ISR requirements of some internal topics (telemetry, clink, auth).
+  replicas: 1 
   metricReporter:
     enabled: false
   configOverrides:
