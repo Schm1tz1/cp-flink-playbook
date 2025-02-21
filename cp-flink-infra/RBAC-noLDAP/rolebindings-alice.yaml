@@ -2,6 +2,23 @@
 apiVersion: platform.confluent.io/v1beta1
 kind: ConfluentRolebinding
 metadata:
+  name: cmf-rb-alice-hack # Note: this was added to allow the environments endpoint to be accessed by CFK which is used as a health check upon startup
+  namespace: confluent
+spec:
+  principal:
+    type: user
+    name: alice
+  resourcePatterns:
+    - name: '*'
+      patternType: LITERAL
+      resourceType: FlinkEnvironment
+  role: DeveloperRead
+  clustersScopeByIds:
+    cmfId: CMF-id
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
   name: cmf-rb-alice
   namespace: confluent
 spec:

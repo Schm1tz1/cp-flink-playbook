@@ -33,5 +33,5 @@ spec:
     parallelism: 3
     upgradeMode: stateless
   cmfRestClassRef:
-    name: sudo
+    name: alice
     namespace: confluent
