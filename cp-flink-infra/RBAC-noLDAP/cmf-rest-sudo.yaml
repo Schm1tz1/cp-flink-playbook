@@ -2,7 +2,7 @@ apiVersion: platform.confluent.io/v1beta1
 kind: CMFRestClass
 metadata:
   name: sudo
-  namespace: confluent
+  namespace: flink
 spec:
   cmfRest:
     endpoint: https://cmf-service.confluent.svc.cluster.local:80

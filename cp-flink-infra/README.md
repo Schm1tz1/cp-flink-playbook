@@ -8,7 +8,7 @@ helm upgrade --install confluent-operator confluentinc/confluent-for-kubernetes 
   --namespace confluent
 
 helm upgrade --install cp-flink-kubernetes-operator confluentinc/flink-kubernetes-operator \
-  --set watchNamespaces={confluent} \
+  --set "watchNamespaces={confluent,flink}" \
   --namespace confluent
 
 # Note: These value overrides are for debugging. For normal operation you can sefely remove the lines with `--set` below

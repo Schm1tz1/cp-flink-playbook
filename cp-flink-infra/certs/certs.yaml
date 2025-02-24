@@ -12,14 +12,12 @@ spec:
     - '*.zookeeper.confluent.svc.cluster.local'
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-zookeeper
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -34,14 +32,12 @@ spec:
     - '*.kraftcontroller.confluent.svc.cluster.local'
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-kraftcontroller
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -56,14 +52,12 @@ spec:
     - '*.kafka.confluent.svc.cluster.local'
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-kafka
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -79,14 +73,12 @@ spec:
     - '*.schemaregistry.confluent.svc.cluster.local'
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-schemaregistry
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -101,14 +93,12 @@ spec:
     - '*.connect.confluent.svc.cluster.local'
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-connect
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -124,14 +114,12 @@ spec:
     - '*.controlcenter.confluent.svc.cluster.local'
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-controlcenter
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -147,14 +135,12 @@ spec:
     - '*.kafkarestproxy.confluent.svc.cluster.local'
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-kafkarestproxy
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -170,14 +156,12 @@ spec:
     - '*.ksqldb.confluent.svc.cluster.local'
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-ksql
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -195,20 +179,18 @@ spec:
     - '*.cmf-service.confluent.svc.cluster.local'
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-cmf
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: client-certificate-alice
-  namespace: confluent
+  namespace: flink
 spec:
   commonName: alice
   dnsNames:
@@ -216,20 +198,18 @@ spec:
     - alice-client
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-client-alice
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: client-certificate-bob
-  namespace: confluent
+  namespace: flink
 spec:
   commonName: bob
   dnsNames:
@@ -237,20 +217,18 @@ spec:
     - bob-client
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-client-bob
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: client-certificate-sudo
-  namespace: confluent
+  namespace: flink
 spec:
   commonName: sudo
   dnsNames:
@@ -258,11 +236,9 @@ spec:
     - sudo-client
   issuerRef:
     name: my-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
   secretName: tls-client-sudo
   keystores:
     jks:
       create: true
-      passwordSecretRef: 
-        key: keystore-default
-        name: tls-keystore-passwords
+      password: "changeMe!"

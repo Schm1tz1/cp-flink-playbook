@@ -10,11 +10,11 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: my-selfsigned-ca
-  namespace: confluent
+  namespace: cert-manager
 spec:
   isCA: true
   commonName: my-selfsigned-ca
-  secretName: root-secret
+  secretName: root-ca
   privateKey:
     algorithm: ECDSA
     size: 256
@@ -24,10 +24,9 @@ spec:
     group: cert-manager.io
 ---
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
   name: my-ca-issuer
-  namespace: confluent
 spec:
   ca:
-    secretName: root-secret
+    secretName: root-ca
