@@ -47,7 +47,7 @@ kubectl create secret generic rest-credential \
 kubectl apply -f cp.yaml
 ```
 Wait for brokers to be in running state.
-* Deploy Rolebindings for CMF user:
+* Deploy Rolebindings for CMF user (needs to be done **BEFORE** installing CMF):
 ```shell
 kubectl apply -f rolebindings-cmf.yaml
 ```

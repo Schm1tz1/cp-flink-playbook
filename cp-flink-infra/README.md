@@ -1,6 +1,6 @@
 # CP Flink Infrastructure Deployment
 
-## Operator and Helm Setup for CFK, FKO, CMF
+## Operator and Helm Setup for CFK, FKO
 ```shell
 helm upgrade --install confluent-operator confluentinc/confluent-for-kubernetes \
   --set namespaced=false \
@@ -10,28 +10,15 @@ helm upgrade --install confluent-operator confluentinc/confluent-for-kubernetes 
 helm upgrade --install cp-flink-kubernetes-operator confluentinc/flink-kubernetes-operator \
   --set "watchNamespaces={confluent,flink}" \
   --namespace confluent
-
-# Note: These value overrides are for debugging. For normal operation you can sefely remove the lines with `--set` below
-helm upgrade --install cmf confluentinc/confluent-manager-for-apache-flink \
-  --set cmf.logging.level.root=debug \
-  --set cmf.k8s.client-connection-timeout-msec=5000 \
-  --set cmf.k8s.client-request-timeout-msec=5000 \
-  --namespace confluent
 ```
+
+## CMF Deployment
+CMF (Confluent Manager for Apache Flink) deployments are use-case specific - please use the installation instruction in the subdirectories.
 
 ## CP Deployments
-
 Available deployment examples (one per subdirectory):
 * minimal
-* mTLS-RBAC (WIP)
-
-### CP
-```shell
-kubectl apply -f cpf.yaml
-```
-
-### CMF Rest Class
-* Deploy:
-```shell
-kubectl apply -f cmf-rest.yaml
-```
+* minimal with mTLS
+* RBAC without LDAP
+* mTLS-RBAC without LDAP (WIP)
+* mTLS-RBAC with OAuth (WIP)
