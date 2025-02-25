@@ -2,6 +2,7 @@ apiVersion: flink.apache.org/v1beta1
 kind: FlinkDeployment
 metadata:
   name: basic-example
+  namespace: flink
 spec:
   image: confluentinc/cp-flink:1.19.1-cp1
   flinkVersion: v1_19
