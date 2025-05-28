@@ -18,8 +18,8 @@ spec:
       runAsUser: 1000
       runAsNonRoot: true
   image:
-    application: confluentinc/cp-server:7.8.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-server:7.9.1
+    init: confluentinc/confluent-init-container:2.11.1
   configOverrides:
     server:
       - default.replication.factor=1
@@ -36,8 +36,8 @@ spec:
   metricReporter:
     enabled: false
   image:
-    application: confluentinc/cp-server:7.8.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-server:7.9.1
+    init: confluentinc/confluent-init-container:2.11.1
   dataVolumeCapacity: 10Gi
   podTemplate:
     resources:

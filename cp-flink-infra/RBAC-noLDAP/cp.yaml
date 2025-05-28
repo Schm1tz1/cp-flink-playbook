@@ -6,8 +6,8 @@ metadata:
 spec:
   dataVolumeCapacity: 10Gi
   image:
-    application: confluentinc/cp-server:7.8.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-server:7.9.1
+    init: confluentinc/confluent-init-container:2.11.1
   listeners:
     controller:
       authentication:
@@ -41,10 +41,18 @@ spec:
     type: rbac
     superUsers:
       - User:kafka
+      - User:cmf
   replicas: 1 
   metricReporter:
     enabled: false
   configOverrides:
+    # log4j:
+    #   - log4j.logger.io.confluent.security.auth=TRACE, metadataServiceAppender
+    #   - log4j.logger.io.confluent.rbacapi=TRACE, metadataServiceAppender
+    #   - log4j.logger.io.confluent.security.store=TRACE, metadataServiceAppender
+    #   - log4j.logger.io.confluent.rest-utils=TRACE, metadataServiceAppender
+    #   - log4j.logger.io.confluent.tokenapi=TRACE, metadataServiceAppender
+    #   - log4j.logger.io.confluent.common.security.jetty=TRACE, metadataServiceAppender
     server:
       - "default.replication.factor=1"
       - "min.insync.replicas=1"
@@ -59,8 +67,16 @@ spec:
       - "confluent.security.event.logger.exporter.kafka.topic.replicas=1"
       - "confluent.cluster.link.metadata.topic.replication.factor=1"
   image:
-    application: confluentinc/cp-server:7.8.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-server:7.9.1
+    init: confluentinc/confluent-init-container:2.11.1
+  podTemplate:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 1Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
   dataVolumeCapacity: 10Gi
   listeners:
     internal:

@@ -3,6 +3,8 @@ kind: CMFRestClass
 metadata:
   name: sudo
   namespace: flink
+  annotations:
+    # platform.confluent.io/disable-cmf-rest-class-liveliness-check: "true"
 spec:
   cmfRest:
     endpoint: https://cmf-service.confluent.svc.cluster.local:80
