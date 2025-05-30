@@ -13,6 +13,24 @@ spec:
     - port: 8080
       targetPort: 8080
 ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keycloak-ingress
+  namespace: confluent
+spec:
+  rules:
+  - host: keycloak.k8s.internal.schmitzi.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: keycloak
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
