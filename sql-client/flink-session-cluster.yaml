@@ -1,0 +1,160 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  name: flink-session-cluster
+  namespace: flink
+  labels:
+    platform.confluent.io/origin: flink
+    platform.confluent.io/environment: flink-env1
+spec:
+  image: confluentinc/cp-flink:1.19.1-cp1
+  flinkVersion: v1_19
+  imagePullPolicy: Always
+  serviceAccount: flink
+  
+  # Session cluster mode for interactive queries
+  mode: native
+  
+  flinkConfiguration:
+    # Task slots
+    taskmanager.numberOfTaskSlots: "4"
+    
+    # Parallelism
+    parallelism.default: "2"
+    
+    # State backend
+    state.backend: filesystem
+    state.checkpoints.dir: file:///opt/flink/checkpoints
+    state.savepoints.dir: file:///opt/flink/savepoints
+    
+    # Metrics
+    metrics.reporter.prom.factory.class: org.apache.flink.metrics.prometheus.PrometheusReporterFactory
+    metrics.reporter.prom.port: 9249-9250
+    
+    # Enable REST API for queries
+    rest.bind-address: 0.0.0.0
+    rest.port: "8081"
+    
+    # Enable SQL features
+    table.exec.resource.default-parallelism: "2"
+    table.sql-dialect: default
+    
+    # Kafka connector defaults
+    table.catalog-store.kind: file
+    table.catalog-store.file.path: /opt/flink/catalogs
+    
+  jobManager:
+    replicas: 1
+    resource:
+      cpu: 2
+      memory: 2048m
+    podTemplate:
+      metadata:
+        labels:
+          platform.confluent.io/origin: flink
+          platform.confluent.io/environment: flink-env1
+          component: jobmanager
+      spec:
+        initContainers:
+        - name: download-kafka-connector
+          image: curlimages/curl:latest
+          command: ['sh', '-c']
+          args:
+          - |
+            curl -L -o /flink-lib/flink-sql-connector-kafka-3.2.0-1.19.jar \
+              https://repo.maven.apache.org/maven2/org/apache/flink/flink-sql-connector-kafka/3.2.0-1.19/flink-sql-connector-kafka-3.2.0-1.19.jar
+            curl -L -o /flink-lib/kafka-clients-3.6.1.jar \
+              https://repo.maven.apache.org/maven2/org/apache/kafka/kafka-clients/3.6.1/kafka-clients-3.6.1.jar
+            echo "Kafka connector and client JARs downloaded successfully"
+            ls -la /flink-lib/
+          volumeMounts:
+          - name: flink-lib
+            mountPath: /flink-lib
+        containers:
+        - name: flink-main-container
+          env:
+          - name: ENABLE_BUILT_IN_PLUGINS
+            value: "flink-s3-fs-hadoop-1.19.1-cp1.jar;flink-s3-fs-presto-1.19.1-cp1.jar"
+          lifecycle:
+            postStart:
+              exec:
+                command: ['sh', '-c', 'cp /tmp/kafka-connector/*.jar /opt/flink/lib/ || echo "Kafka connector already present"']
+          volumeMounts:
+          - name: checkpoints
+            mountPath: /opt/flink/checkpoints
+          - name: savepoints
+            mountPath: /opt/flink/savepoints
+          - name: catalogs
+            mountPath: /opt/flink/catalogs
+          - name: flink-lib
+            mountPath: /tmp/kafka-connector
+        volumes:
+        - name: checkpoints
+          emptyDir: {}
+        - name: savepoints
+          emptyDir: {}
+        - name: catalogs
+          emptyDir: {}
+        - name: flink-lib
+          emptyDir: {}
+          
+  taskManager:
+    replicas: 2
+    resource:
+      cpu: 2
+      memory: 2048m
+    podTemplate:
+      metadata:
+        labels:
+          platform.confluent.io/origin: flink
+          platform.confluent.io/environment: flink-env1
+          component: taskmanager
+      spec:
+        initContainers:
+        - name: download-kafka-connector
+          image: curlimages/curl:latest
+          command: ['sh', '-c']
+          args:
+          - |
+            curl -L -o /flink-lib/flink-sql-connector-kafka-3.2.0-1.19.jar \
+              https://repo.maven.apache.org/maven2/org/apache/flink/flink-sql-connector-kafka/3.2.0-1.19/flink-sql-connector-kafka-3.2.0-1.19.jar
+            curl -L -o /flink-lib/kafka-clients-3.6.1.jar \
+              https://repo.maven.apache.org/maven2/org/apache/kafka/kafka-clients/3.6.1/kafka-clients-3.6.1.jar
+            echo "Kafka connector and client JARs downloaded successfully"
+            ls -la /flink-lib/
+          volumeMounts:
+          - name: flink-lib
+            mountPath: /flink-lib
+        containers:
+        - name: flink-main-container
+          lifecycle:
+            postStart:
+              exec:
+                command: ['sh', '-c', 'cp /tmp/kafka-connector/*.jar /opt/flink/lib/ || echo "Kafka connector already present"']
+          volumeMounts:
+          - name: checkpoints
+            mountPath: /opt/flink/checkpoints
+          - name: savepoints
+            mountPath: /opt/flink/savepoints
+          - name: flink-lib
+            mountPath: /tmp/kafka-connector
+        volumes:
+        - name: checkpoints
+          emptyDir: {}
+        - name: savepoints
+          emptyDir: {}
+        - name: flink-lib
+          emptyDir: {}
+---
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkSessionJob
+metadata:
+  name: sql-runner-job
+  namespace: flink
+spec:
+  deploymentName: flink-session-cluster
+  job:
+    jarURI: https://repo1.maven.org/maven2/org/apache/flink/flink-sql-client/1.19.1/flink-sql-client-1.19.1.jar
+    parallelism: 1
+    upgradeMode: stateless
+    state: suspended  # Start suspended, we'll use it interactively
